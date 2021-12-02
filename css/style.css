@@ -1,3 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "VT323", monospace;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* utillities */
+.btn {
+  cursor: pointer;
+  padding: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  margin-top: 2px;
+}
+
+.btn:hover {
+  border: 1px solid orangered;
+  box-shadow: 1px 5px 5px orangered;
+  border-radius: 10px;
+  color: orangered;
+  transition: border-radius 1s ease;
+}
+
+/* viewed screen */
 .container {
   display: grid;
   grid-template-columns: 6fr 1fr;
