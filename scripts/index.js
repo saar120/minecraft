@@ -1,5 +1,3 @@
-
-
 const materialObj = {
   axe: ["leaves", "wood"],
   picaxe: ["rock"],
