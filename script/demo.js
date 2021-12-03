@@ -289,11 +289,11 @@ function materialInventoryLoad() {
 
 // event listners for tool choise -> collects only the matching material
 axe.addEventListener("click", (e) => {
-  tool = "axe"; // updates the currrent tool
-  removeOtherEventListeners(); //clears other event listners
-  pickedToolBackground(); // clears clicked effect from other items
-  e.currentTarget.classList.add("blue"); // make clicked effect on current item
-  game.addEventListener("click", collectMaterial); //activate material collection
+  tool = "axe";
+  removeOtherEventListeners();
+  pickedToolBackground();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectMaterial);
 });
 
 picaxe.addEventListener("click", (e) => {
