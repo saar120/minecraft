@@ -21,13 +21,11 @@ let material;
 let currentTool;
 let currentMaterial;
 
-
 const materialObj = {
   axe: ["leaves", "wood"],
   picaxe: ["rock"],
   shovel: ["soil", "grass"],
 };
-
 
 function landScapeMaker(
   material,
@@ -90,50 +88,49 @@ function worldMaker() {
   //   nonVacantLocations.shift(); // deletes 1 // to prevent element sitting to close to the starts
 
   //adjust grid to containe bigger world
-//   game.style.gridTemplateColumns = "repeat(50, 1fr)";
-//   game.style.width = "1650px";
-//   game.style.margin = 0;
+  //   game.style.gridTemplateColumns = "repeat(50, 1fr)";
+  //   game.style.width = "1650px";
+  //   game.style.margin = 0;
 
-
-  boxGameCreator(1, 20, 25, 50); 
-  landScapeMaker("grass", 14, 14, 1, 50); 
+  boxGameCreator(1, 20, 25, 50);
+  landScapeMaker("grass", 14, 14, 1, 50);
   landScapeMaker("soil", 15, 20, 1, 50);
 
-//   for (let i = 1; i <= trees; i++) {
-//     // creating elements for the world (for amount of user choice)
-//     let location = Math.floor(Math.random() * nonVacantLocations.length); // generate random index of not existed locations
-//     if (nonVacantLocations[location]) {
-//       // checks if location is valid
-//       treeMaker(nonVacantLocations[location]); // creates element
-//       nonVacantLocations[location] = false; // makes element false (not habitable)
-//     } else {
-//       i--; // make loop iterate again
-//     }
-//   }
-//   for (let i = 1; i <= rocks; i++) {
-//     let location = Math.floor(Math.random() * nonVacantLocations.length);
-//     if (nonVacantLocations[location]) {
-//       rockMaker(nonVacantLocations[location]);
-//       nonVacantLocations[location] = false;
-//     } else {
-//       i--;
-//     }
-//   }
-//   for (let i = 1; i <= bushes; i++) {
-//     let location = Math.floor(Math.random() * nonVacantLocations.length);
-//     if (
-//       nonVacantLocations[location] &&
-//       nonVacantLocations[location + 1] &&
-//       nonVacantLocations[location + 2]
-//     ) {
-//       bushMaker(nonVacantLocations[location]);
-//       nonVacantLocations[location + 2] = false;
-//       nonVacantLocations[location + 1] = false;
-//       nonVacantLocations[location] = false;
-//     } else {
-//       i--;
-//     }
-//   }
+  //   for (let i = 1; i <= trees; i++) {
+  //     // creating elements for the world (for amount of user choice)
+  //     let location = Math.floor(Math.random() * nonVacantLocations.length); // generate random index of not existed locations
+  //     if (nonVacantLocations[location]) {
+  //       // checks if location is valid
+  //       treeMaker(nonVacantLocations[location]); // creates element
+  //       nonVacantLocations[location] = false; // makes element false (not habitable)
+  //     } else {
+  //       i--; // make loop iterate again
+  //     }
+  //   }
+  //   for (let i = 1; i <= rocks; i++) {
+  //     let location = Math.floor(Math.random() * nonVacantLocations.length);
+  //     if (nonVacantLocations[location]) {
+  //       rockMaker(nonVacantLocations[location]);
+  //       nonVacantLocations[location] = false;
+  //     } else {
+  //       i--;
+  //     }
+  //   }
+  //   for (let i = 1; i <= bushes; i++) {
+  //     let location = Math.floor(Math.random() * nonVacantLocations.length);
+  //     if (
+  //       nonVacantLocations[location] &&
+  //       nonVacantLocations[location + 1] &&
+  //       nonVacantLocations[location + 2]
+  //     ) {
+  //       bushMaker(nonVacantLocations[location]);
+  //       nonVacantLocations[location + 2] = false;
+  //       nonVacantLocations[location + 1] = false;
+  //       nonVacantLocations[location] = false;
+  //     } else {
+  //       i--;
+  //     }
+  //   }
 }
 
 // creating divs. giving them a specific location(row and column), and creating obj of boxes. for future play and positions options.
@@ -161,200 +158,200 @@ function boxGameCreator(
 boxGameCreator(); // creating divs
 basicWorldMaker();
 
-//cleaner for reset option - removes second class for each box because thats the background material
-// function worldCleaner(columnEnd = 25) {
-//     for (let row = 1; row <= 13; row++) {
-//         for (let column = 1; column <= columnEnd; column++) {
-//             objOfBoxes[`${row}.${column}`].classList[1] && // confirming there is a class to clean ([0] is .box)
-//                 objOfBoxes[`${row}.${column}`].classList.remove(`${objOfBoxes[`${row}.${column}`].classList[1]}`);
-//         }
-//     }
-//     landMaker();
-// }
+// cleaner for reset option - removes second class for each box because thats the background material
+function worldCleaner(columnEnd = 25) {
+  for (let row = 1; row <= 13; row++) {
+    for (let column = 1; column <= columnEnd; column++) {
+      objOfBoxes[`${row}.${column}`].classList[1] && // confirming there is a class to clean ([0] is .box)
+        objOfBoxes[`${row}.${column}`].classList.remove(
+          `${objOfBoxes[`${row}.${column}`].classList[1]}`
+        );
+    }
+  }
+  landMaker();
+}
 
-// function markAsWorng(event) { // marks box as wrong with red border for 50ms
-//     event.target.style.border = '1px solid red';
-//     setTimeout(() => {
-//         event.target.style.border = 'none';
-//     }, 50);
-// }
+function markAsWorng(event) {
+  // marks box as wrong with red border for 50ms
+  event.target.style.border = "1px solid red";
+  setTimeout(() => {
+    event.target.style.border = "none";
+  }, 400);
+}
 
-//collect material functions (game function of harvesting with a tool)
-// function collectMaterial(event) {
-//     material = event.target.classList[1];
-//     // limit mainly the shovel to collect only from material with space near it or any access.
-//         let [row, column] = [event.target.style.gridRow.slice(0, -6) - 1, parseInt(event.target.style.gridColumn.slice(0, -7))]; // location of one box above
-//         if (objOfBoxes[`${row}.${column}`].classList.length == 1
-//         || objOfBoxes[`${row + 1}.${column + 1}`].classList.length == 1
-//         || objOfBoxes[`${row + 1}.${column - 1}`].classList.length == 1
-//         || objOfBoxes[`${row + 2}.${column}`].classList.length == 1 ) { // check if there is material in the one box above // prevent coolecting soil from under ground
-//             if (materialObj[tool].includes(material)) {
-//                 inventory[material] ? inventory[material] += 1 : inventory[material] = 1; //// updated inventory obj amounts
-//                 event.target.classList.remove(material);
-//                 updateInventory() // updated the written amount
-//             } else markAsWorng(event);
-//         } else markAsWorng(event);
-// }
+// collect material functions (game function of harvesting with a tool)
+function collectMaterial(event) {
+  material = event.target.classList[1];
+  // limit mainly the shovel to collect only from material with space near it or any access.
+  let [row, column] = [
+    event.target.style.gridRow.slice(0, -6) - 1,
+    parseInt(event.target.style.gridColumn.slice(0, -7)),
+  ]; // location of one box above
+  if (
+    objOfBoxes[`${row}.${column}`].classList.length == 1 ||
+    objOfBoxes[`${row + 1}.${column + 1}`].classList.length == 1 ||
+    objOfBoxes[`${row + 1}.${column - 1}`].classList.length == 1 ||
+    objOfBoxes[`${row + 2}.${column}`].classList.length == 1
+  ) {
+    // check if there is material in the one box above // prevent coolecting soil from under ground
+    if (materialObj[tool].includes(material)) {
+      inventory[material]
+        ? (inventory[material] += 1)
+        : (inventory[material] = 1); //// updated inventory obj amounts
+      event.target.classList.remove(material);
+      updateInventory(); // updated the written amount
+    } else markAsWorng(event);
+  } else markAsWorng(event);
+}
 
 // inventory update the html element to show amount
 function updateInventory() {
-    for (let [material, amount] of Object.entries(inventory)) {
-        switch (material) {
-            case 'grass':
-                grassInventory.innerHTML = `<h4>${amount}</h4>`;
-                break;
-            case 'rock':
-                rockInventory.innerHTML = `<h4>${amount}</h4>`;
-                break;
-            case 'soil':
-                soilInventory.innerHTML = `<h4>${amount}</h4>`;
-                break;
-            case 'leaves':
-                leavesInventory.innerHTML = `<h4>${amount}</h4>`;
-                break;
-            case 'wood':
-                woodInventory.innerHTML = `<h4>${amount}</h4>`;
-                break;
-        }
+  for (let [material, amount] of Object.entries(inventory)) {
+    switch (material) {
+      case "grass":
+        grassInventory.innerHTML = `<h4>${amount}</h4>`;
+        break;
+      case "rock":
+        rockInventory.innerHTML = `<h4>${amount}</h4>`;
+        break;
+      case "soil":
+        soilInventory.innerHTML = `<h4>${amount}</h4>`;
+        break;
+      case "leaves":
+        leavesInventory.innerHTML = `<h4>${amount}</h4>`;
+        break;
+      case "wood":
+        woodInventory.innerHTML = `<h4>${amount}</h4>`;
+        break;
     }
+  }
 }
 
 // functions to put material on game grid (the player bulding)
-// function putMaterial(event) {
-//     if (inventory[material]) {
-//         if (event.target.classList.length == 1) { // check there isnt a material class (not taken)
-//             event.target.classList.add(material)
-//             inventory[material] -= 1;
-//             updateInventory();
-//         }
-//     }
-// }
+function putMaterial(event) {
+  if (inventory[material]) {
+    if (event.target.classList.length == 1) {
+      // check there isnt a material class (not taken)
+      event.target.classList.add(material);
+      inventory[material] -= 1;
+      updateInventory();
+    }
+  }
+}
 
-//short cut to remove listeners
-// function removeOtherEventListeners() {
-//     game.removeEventListener('click', collectMaterial)
-//     game.removeEventListener('click', putMaterial)
-// }
+// short cut to remove listeners
+function removeOtherEventListeners() {
+  game.removeEventListener("click", collectMaterial);
+  game.removeEventListener("click", putMaterial);
+}
 
 // background resetter. (to delete illusions of pickes (or clicked) on other elements)
-// function backgroundReset() {
-//     axe.classList.contains('red') && axe.classList.remove('red');
-//     axe.classList.contains('blue') && axe.classList.remove('blue');
-//     picaxe.classList.contains('red') && picaxe.classList.remove('red');
-//     picaxe.classList.contains('blue') && picaxe.classList.remove('blue');
-//     shovel.classList.contains('red') && shovel.classList.remove('red');
-//     shovel.classList.contains('blue') && shovel.classList.remove('blue');
-//     grassInventory.style.opacity = 0.75;
-//     woodInventory.style.opacity = 0.75;
-//     soilInventory.style.opacity = 0.75;
-//     leavesInventory.style.opacity = 0.75;
-//     rockInventory.style.opacity = 0.75;
-// }
+function pickedToolBackground() {
+  axe.classList.contains("red") && axe.classList.remove("red");
+  axe.classList.contains("blue") && axe.classList.remove("blue");
+  picaxe.classList.contains("red") && picaxe.classList.remove("red");
+  picaxe.classList.contains("blue") && picaxe.classList.remove("blue");
+  shovel.classList.contains("red") && shovel.classList.remove("red");
+  shovel.classList.contains("blue") && shovel.classList.remove("blue");
+  grassInventory.style.opacity = 0.75;
+  woodInventory.style.opacity = 0.75;
+  soilInventory.style.opacity = 0.75;
+  leavesInventory.style.opacity = 0.75;
+  rockInventory.style.opacity = 0.75;
+}
 
 // change visibility of html elements
-// function toggleElementsHidder(el, hide = true) {
-//     hide
-//         ?
-//         el.style.visibility = 'hidden' :
-//         el.style.visibility = 'visible'
-// }
+function toggleElementsHidder(el, hide = true) {
+  hide ? (el.style.visibility = "hidden") : (el.style.visibility = "visible");
+}
 
-// function inventoryReset() {
-//     for (let material of Object.keys(inventory)) { // calibrate inventory
-//         inventory[material] = 0;
-//     }
-//     updateInventory();
-// }
+function inventoryReset() {
+  for (let material of Object.keys(inventory)) {
+    // calibrate inventory
+    inventory[material] = 0;
+  }
+  updateInventory();
+}
 
-// sets timer. each minute (60s) the player gets one added material of each type.
-// let timerCounter = 0;
-
-// function timerMaterialReload() {
-//     if (timerCounter == 60) {
-//         for (let material of ['grass', 'soil', 'rock', 'leaves', 'wood']) {
-//             inventory[material] ? inventory[material] += 1 : inventory[material] = 1; // adding to inventory
-//             updateInventory(); // updated nunmber showen to player
-//         }
-//         timerCounter = 1; // resets timer
-//         timer.innerHTML = `<h4><i class="far fa-grin-tongue-wink"></i></h4>`; //  smiley face to represent stocking
-//     } else {
-//         timer.innerHTML = `<h4>${timerCounter}</h4>`
-//     }
-//     timerCounter++
-// }
+function materialInventoryLoad() {
+  for (let material of ["grass", "soil", "rock", "leaves", "wood"]) {
+    inventory[material]
+      ? (inventory[material] += 1)
+      : (inventory[material] = 1); // adding to inventory
+    updateInventory(); // updated nunmber showen to player
+  }
+}
 
 // GAME PLAY -!!-
 
 // making the base world
 // creating basic world with one instance of each element
 
-// setInterval(timerMaterialReload, 1000) // starts timer for adding to inventory each minute
+// event listners for tool choise -> collects only the matching material
+axe.addEventListener("click", (e) => {
+  tool = "axe"; // updates the currrent tool
+  removeOtherEventListeners(); //clears other event listners
+  pickedToolBackground(); // clears clicked effect from other items
+  e.currentTarget.classList.add("blue"); // make clicked effect on current item
+  game.addEventListener("click", collectMaterial); //activate material collection
+});
 
-// // event listners for tool choise -> collects only the matching material
-// axe.addEventListener('click', (e) => {
-//     tool = 'axe'; // updates the currrent tool
-//     removeOtherEventListeners(); //clears other event listners
-//     backgroundReset(); // clears clicked effect from other items
-//     e.currentTarget.classList.add('blue') // make clicked effect on current item
-//     game.addEventListener('click', collectMaterial); //activate material collection
-// })
+picaxe.addEventListener("click", (e) => {
+  tool = "picaxe";
+  removeOtherEventListeners();
+  pickedToolBackground();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectMaterial);
+});
 
-// picaxe.addEventListener('click', (e) => {
-//     tool = 'picaxe'
-//     removeOtherEventListeners()
-//     backgroundReset();
-//     e.currentTarget.classList.add('blue');
-//     game.addEventListener('click', collectMaterial);
-// })
+shovel.addEventListener("click", (e) => {
+  tool = "shovel";
+  removeOtherEventListeners();
+  pickedToolBackground();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectMaterial);
+});
 
-// shovel.addEventListener('click', (e) => {
-//     tool = 'shovel';
-//     removeOtherEventListeners()
-//     backgroundReset();
-//     e.currentTarget.classList.add('blue')
-//     game.addEventListener('click', collectMaterial)
-// })
+// event listners for putting material
+grassInventory.addEventListener("click", (event) => {
+  removeOtherEventListeners(); // clears other event listners
+  material = "grass"; // updates the currrent material used
+  pickedToolBackground(); //clears clicked effect on others
+  grassInventory.style.opacity = 1; // identicate the item as clicked
+  game.addEventListener("click", putMaterial); // activate material collection
+});
 
-// // event listners for putting material
-// grassInventory.addEventListener('click', (event) => {
-//     removeOtherEventListeners() // clears other event listners
-//     material = 'grass'; // updates the currrent material used
-//     backgroundReset(); //clears clicked effect on others
-//     grassInventory.style.opacity = 1; // identicate the item as clicked
-//     game.addEventListener('click', putMaterial); // activate material collection
-// })
+woodInventory.addEventListener("click", (event) => {
+  removeOtherEventListeners();
+  material = "wood";
+  pickedToolBackground();
+  woodInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterial);
+});
 
-// woodInventory.addEventListener('click', (event) => {
-//     removeOtherEventListeners()
-//     material = 'wood';
-//     backgroundReset();
-//     woodInventory.style.opacity = 1;
-//     game.addEventListener('click', putMaterial);
-// })
+rockInventory.addEventListener("click", (event) => {
+  removeOtherEventListeners();
+  material = "rock";
+  pickedToolBackground();
+  rockInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterial);
+});
 
-// rockInventory.addEventListener('click', (event) => {
-//     removeOtherEventListeners()
-//     material = 'rock';
-//     backgroundReset();
-//     rockInventory.style.opacity = 1;
-//     game.addEventListener('click', putMaterial);
-// })
+soilInventory.addEventListener("click", (event) => {
+  removeOtherEventListeners();
+  material = "soil";
+  pickedToolBackground();
+  soilInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterial);
+});
 
-// soilInventory.addEventListener('click', (event) => {
-//     removeOtherEventListeners()
-//     material = 'soil';
-//     backgroundReset();
-//     soilInventory.style.opacity = 1;
-//     game.addEventListener('click', putMaterial);
-// })
-
-// leavesInventory.addEventListener('click', (event) => {
-//     removeOtherEventListeners()
-//     material = 'leaves';
-//     backgroundReset();
-//     leavesInventory.style.opacity = 1;
-//     game.addEventListener('click', putMaterial);
-// })
+leavesInventory.addEventListener("click", (event) => {
+  removeOtherEventListeners();
+  material = "leaves";
+  pickedToolBackground();
+  leavesInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterial);
+});
 
 // // BUTTONS -
 // // reset button event listener
