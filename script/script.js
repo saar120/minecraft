@@ -58,9 +58,9 @@ function landScapeMaker(
   }
 }
 
-// basic world builder with set positions
 function landMaker(length = 25) {
-  // grid length
+  let cloudX = Math.floor(Math.random() * 5 + 1);
+  let cloudY = Math.floor(Math.random() * 10 + 6);
   landScapeMaker("grass", 14, 14, 1, length);
   landScapeMaker("soil", 15, 20, 1, length);
   landScapeMaker("cloud", 5, 5, 9, 13);
@@ -68,11 +68,8 @@ function landMaker(length = 25) {
   landScapeMaker("cloud", 3, 3, 10, 11);
 }
 
-// x for future random location generator
-
 function treeMaker() {
   let treeX = Math.floor(Math.random() * 10 + 12);
-  // console.log(x);
   landScapeMaker("wood", 10, 13, treeX, treeX);
   landScapeMaker("leaves", 7, 9, treeX - 1, treeX + 1);
 }
@@ -100,7 +97,6 @@ function sunMaker(x = 3, y = 1) {
   landScapeMaker("sun", y + 3, y + 3, x - 2, x + 2);
 }
 
-// permanent set
 function basicWorldMaker() {
   landMaker();
   treeMaker();
@@ -110,11 +106,10 @@ function basicWorldMaker() {
   sunMaker();
 }
 
-// cleaner for reset option - removes second class for each box because thats the background material
 function worldCleaner(columnEnd = 25) {
   for (let row = 1; row <= 20; row++) {
     for (let column = 1; column <= columnEnd; column++) {
-      objOfBoxes[`${row}.${column}`].classList[1] && // confirming there is a class to clean ([0] is .box)
+      objOfBoxes[`${row}.${column}`].classList[1] &&
         objOfBoxes[`${row}.${column}`].classList.remove(
           `${objOfBoxes[`${row}.${column}`].classList[1]}`
         );
@@ -140,7 +135,6 @@ function collectMaterial(event) {
   } else wrongPick(event);
 }
 
-// inventory update the html element to show amount
 function updateInventory() {
   for (let [material, amount] of Object.entries(inventory)) {
     switch (material) {
@@ -169,8 +163,7 @@ function updateInventory() {
   }
 }
 
-// functions to put material on game grid (the player bulding)
-function putMaterial(event) {
+function putMaterialBackOnGrid(event) {
   if (inventory[material]) {
     if (event.target.classList.length == 1) {
       event.target.classList.add(material);
@@ -182,10 +175,9 @@ function putMaterial(event) {
 
 function removeOtherEventListeners() {
   game.removeEventListener("click", collectMaterial);
-  game.removeEventListener("click", putMaterial);
+  game.removeEventListener("click", putMaterialBackOnGrid);
 }
 
-// background resetter. (to delete illusions of pickes (or clicked) on other elements)
 function backgroundReset() {
   axe.classList.contains("blue") && axe.classList.remove("blue");
   picaxe.classList.contains("blue") && picaxe.classList.remove("blue");
@@ -233,7 +225,7 @@ function inventoryReset() {
   updateInventory();
 }
 
-function timerMaterialReload() {
+function materialReload() {
   for (let material of [
     "grass",
     "soil",
@@ -245,8 +237,8 @@ function timerMaterialReload() {
   ]) {
     inventory[material]
       ? (inventory[material] += 1)
-      : (inventory[material] = 1); // adding to inventory
-    updateInventory(); // updated nunmber showen to player
+      : (inventory[material] = 1);
+    updateInventory();
   }
 }
 
@@ -290,7 +282,7 @@ grassInventory.addEventListener("click", (event) => {
   material = "grass";
   backgroundReset();
   grassInventory.style.opacity = 1;
-  game.addEventListener("click", putMaterial);
+  game.addEventListener("click", putMaterialBackOnGrid);
 });
 
 woodInventory.addEventListener("click", (event) => {
@@ -298,7 +290,7 @@ woodInventory.addEventListener("click", (event) => {
   material = "wood";
   backgroundReset();
   woodInventory.style.opacity = 1;
-  game.addEventListener("click", putMaterial);
+  game.addEventListener("click", putMaterialBackOnGrid);
 });
 
 rockInventory.addEventListener("click", (event) => {
@@ -306,7 +298,7 @@ rockInventory.addEventListener("click", (event) => {
   material = "rock";
   backgroundReset();
   rockInventory.style.opacity = 1;
-  game.addEventListener("click", putMaterial);
+  game.addEventListener("click", putMaterialBackOnGrid);
 });
 
 soilInventory.addEventListener("click", (event) => {
@@ -314,7 +306,7 @@ soilInventory.addEventListener("click", (event) => {
   material = "soil";
   backgroundReset();
   soilInventory.style.opacity = 1;
-  game.addEventListener("click", putMaterial);
+  game.addEventListener("click", putMaterialBackOnGrid);
 });
 
 leavesInventory.addEventListener("click", (event) => {
@@ -322,7 +314,7 @@ leavesInventory.addEventListener("click", (event) => {
   material = "leaves";
   backgroundReset();
   leavesInventory.style.opacity = 1;
-  game.addEventListener("click", putMaterial);
+  game.addEventListener("click", putMaterialBackOnGrid);
 });
 
 bushLeavesInventory.addEventListener("click", (event) => {
@@ -330,15 +322,15 @@ bushLeavesInventory.addEventListener("click", (event) => {
   material = "bushLeaves";
   backgroundReset();
   leavesInventory.style.opacity = 1;
-  game.addEventListener("click", putMaterial);
+  game.addEventListener("click", putMaterialBackOnGrid);
 });
 
 sunInventory.addEventListener("click", (event) => {
   removeOtherEventListeners();
-  material = "bushLeaves";
+  material = "sun";
   backgroundReset();
-  leavesInventory.style.opacity = 1;
-  game.addEventListener("click", putMaterial);
+  sunInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterialBackOnGrid);
 });
 
 resetButton.addEventListener("click", () => {
@@ -355,7 +347,7 @@ openMainScreen.addEventListener("click", () => {
 
 startGameButton.addEventListener("click", () => {
   entranceScreen.style.opacity = 0;
-  entranceScreen.style.transition = "all 1.5s"; // animation of fade out
+  entranceScreen.style.transition = "all 1.5s";
 
   toggleElementsHidder(entranceScreen);
   setTimeout(() => {
