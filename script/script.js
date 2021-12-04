@@ -18,12 +18,9 @@ const resetButton = document.querySelector(".tool-box--right-side button");
 const entrenceScreen = document.querySelector(".entrence-screen");
 const modifyScreen = document.querySelector(".modify-window");
 const instructionScreen = document.querySelector(".instruction-window");
-const [
-  instructionsButton,
-  modifyWorldButton,
-  startModifyGameButton,
-  startGameButton,
-] = document.querySelectorAll(".entrence-screen button");
+const [instructionsButton, startGameButton] = document.querySelectorAll(
+  ".entrence-screen button"
+);
 const modifyWorldInputs = document.querySelectorAll("input");
 const openMainScreen = document.querySelectorAll(
   ".tool-box--right-side .btn"
@@ -102,44 +99,38 @@ function basicWorldMaker() {
   rockMaker(13, true);
   rockMaker();
   bushMaker();
+  sunMaker();
 }
 
-//cleaner for reset option - removes second class for each box because thats the background material
-// function worldCleaner(columnEnd = 25) {
-//     for (let row = 1; row <= 13; row++) {
-//         for (let column = 1; column <= columnEnd; column++) {
-//             objOfBoxes[`${row}.${column}`].classList[1] && // confirming there is a class to clean ([0] is .box)
-//                 objOfBoxes[`${row}.${column}`].classList.remove(`${objOfBoxes[`${row}.${column}`].classList[1]}`);
-//         }
-//     }
-//     landMaker();
-// }
+// cleaner for reset option - removes second class for each box because thats the background material
+function worldCleaner(columnEnd = 25) {
+  for (let row = 1; row <= 20; row++) {
+    for (let column = 1; column <= columnEnd; column++) {
+      objOfBoxes[`${row}.${column}`].classList[1] && // confirming there is a class to clean ([0] is .box)
+        objOfBoxes[`${row}.${column}`].classList.remove(
+          `${objOfBoxes[`${row}.${column}`].classList[1]}`
+        );
+    }
+  }
+}
 
-function markAsWorng(event) {
-  // marks box as wrong with red border for 50ms
+function wrongPick(event) {
   event.target.style.border = "1px solid red";
   setTimeout(() => {
     event.target.style.border = "none";
-  }, 50);
+  }, 400);
 }
 
-//collect material functions (game function of harvesting with a tool)
 function collectMaterial(event) {
   material = event.target.classList[1];
-  // limit mainly the shovel to collect only from material with space near it or any access.
-  // let [row, column] = [event.target.style.gridRow.slice(0, -6) - 1, parseInt(event.target.style.gridColumn.slice(0, -7))]; // location of one box above
-  // if (objOfBoxes[`${row}.${column}`].classList.length == 1
-  // || objOfBoxes[`${row + 1}.${column + 1}`].classList.length == 1
-  // || objOfBoxes[`${row + 1}.${column - 1}`].classList.length == 1
-  // || objOfBoxes[`${row + 2}.${column}`].classList.length == 1 ) { // check if there is material in the one box above // prevent coolecting soil from under ground
+
   if (materialObj[tool].includes(material)) {
     inventory[material]
       ? (inventory[material] += 1)
       : (inventory[material] = 1); //// updated inventory obj amounts
     event.target.classList.remove(material);
-    updateInventory(); // updated the written amount
-  } else markAsWorng(event);
-  // } else markAsWorng(event);
+    updateInventory();
+  } else wrongPick(event);
 }
 
 // inventory update the html element to show amount
@@ -169,14 +160,12 @@ function updateInventory() {
 function putMaterial(event) {
   if (inventory[material]) {
     if (event.target.classList.length == 1) {
-      // check there isnt a material class (not taken)
       event.target.classList.add(material);
       inventory[material] -= 1;
       updateInventory();
     }
   }
 }
-
 
 function removeOtherEventListeners() {
   game.removeEventListener("click", collectMaterial);
@@ -238,15 +227,15 @@ function timerMaterialReload() {
   }
 }
 
-boxGameCreator(); 
-basicWorldMaker(); 
+boxGameCreator();
+basicWorldMaker();
 
 axe.addEventListener("click", (e) => {
-  tool = "axe"; 
-  removeOtherEventListeners(); 
-  backgroundReset(); 
-  e.currentTarget.classList.add("blue"); 
-  game.addEventListener("click", collectMaterial); 
+  tool = "axe";
+  removeOtherEventListeners();
+  backgroundReset();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectMaterial);
 });
 
 picaxe.addEventListener("click", (e) => {
@@ -265,13 +254,12 @@ shovel.addEventListener("click", (e) => {
   game.addEventListener("click", collectMaterial);
 });
 
-
 grassInventory.addEventListener("click", (event) => {
-  removeOtherEventListeners(); 
-  material = "grass"; 
-  backgroundReset(); 
-  grassInventory.style.opacity = 1; 
-  game.addEventListener("click", putMaterial); 
+  removeOtherEventListeners();
+  material = "grass";
+  backgroundReset();
+  grassInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterial);
 });
 
 woodInventory.addEventListener("click", (event) => {
@@ -304,4 +292,28 @@ leavesInventory.addEventListener("click", (event) => {
   backgroundReset();
   leavesInventory.style.opacity = 1;
   game.addEventListener("click", putMaterial);
+});
+
+resetButton.addEventListener("click", () => {
+  inventoryReset();
+  updateInventory();
+  worldCleaner();
+  basicWorldMaker();
+});
+
+openMainScreen.addEventListener("click", () => {
+  startGameButton.innerHTML = "return to game";
+  toggleElementsHidder(entrenceScreen, false);
+});
+
+startGameButton.addEventListener("click", () => {
+  entrenceScreen.style.opacity = 0;
+  entrenceScreen.style.transition = "all 1.5s"; // animation of fade out
+
+  toggleElementsHidder(entrenceScreen);
+  // setTimeout(() => {
+  //   entrenceScreen.style.opacity = 1;
+  // }, 2000); // set back opacity to reopen window
+
+  toggleElementsHidder(instructionScreen);
 });

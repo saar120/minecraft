@@ -9,23 +9,92 @@ body {
   overflow: hidden;
 }
 
+/* Entrence Screen */
+.entrence-screen {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("https://images.pexels.com/photos/275030/pexels-photo-275030.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.entrence-screen > div {
+  margin-top: 25vh;
+}
+
+/* instructions */
+.instruction-window {
+  background: rgba(0, 0, 0, 0.712);
+  text-align: center;
+  color: #fff;
+  margin: 5px;
+  visibility: hidden;
+}
+
+.instruction-window > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.instruction-window h1 {
+  grid-column: 1 / span 3;
+}
+
+.instruction-window div > img {
+  width: 40px;
+}
+
+.tools,
+.materials,
+.arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tools > *,
+.materials > * {
+  margin-top: 30px;
+}
+
+.arrows i {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.instruction-window p {
+  grid-column: 1 / span 3;
+  padding: 30px;
+}
+
 /* utillities */
 .btn {
   cursor: pointer;
   padding: 10px;
   padding-right: 20px;
   padding-left: 20px;
+  margin-left: 80px;
+  margin-right: 80px;
   background: transparent;
   color: #fff;
   border: 1px solid #fff;
   margin-top: 2px;
 }
 
+
 .btn:hover {
-  border: 1px solid orangered;
-  box-shadow: 1px 5px 5px orangered;
+  border: 1px solid #1f1f1f;
+  box-shadow: 1px 5px 5px #1f1f1f;
   border-radius: 10px;
-  color: orangered;
+  color: #1f1f1f;
   transition: border-radius 1s ease;
 }
 
@@ -137,7 +206,7 @@ body {
 }
 
 .sun h4 {
-  color: #1f1f1f
+  color: #1f1f1f;
 }
 
 .timer {
@@ -179,10 +248,7 @@ body {
   transition: background 1s ease;
 }
 
+
 .blue {
   background: rgba(84, 84, 156, 0.527);
-}
-
-.red {
-  background: red;
 }

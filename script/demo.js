@@ -104,16 +104,16 @@ function basicWorldMaker() {
   bushMaker();
 }
 
-//cleaner for reset option - removes second class for each box because thats the background material
-// function worldCleaner(columnEnd = 25) {
-//     for (let row = 1; row <= 13; row++) {
-//         for (let column = 1; column <= columnEnd; column++) {
-//             objOfBoxes[`${row}.${column}`].classList[1] && // confirming there is a class to clean ([0] is .box)
-//                 objOfBoxes[`${row}.${column}`].classList.remove(`${objOfBoxes[`${row}.${column}`].classList[1]}`);
-//         }
-//     }
-//     landMaker();
-// }
+function worldCleaner(columnEnd = 25) {
+  for (let row = 1; row <= 13; row++) {
+    for (let column = 1; column <= columnEnd; column++) {
+      objOfBoxes[`${row}.${column}`].classList[1] && // confirming there is a class to clean ([0] is .box)
+        objOfBoxes[`${row}.${column}`].classList.remove(
+          `${objOfBoxes[`${row}.${column}`].classList[1]}`
+        );
+    }
+  }
+}
 
 function markAsWorng(event) {
   // marks box as wrong with red border for 50ms
@@ -123,7 +123,7 @@ function markAsWorng(event) {
   }, 50);
 }
 
-//collect material functions (game function of harvesting with a tool)
+
 function collectMaterial(event) {
   material = event.target.classList[1];
   // limit mainly the shovel to collect only from material with space near it or any access.
@@ -142,7 +142,7 @@ function collectMaterial(event) {
   // } else markAsWorng(event);
 }
 
-// inventory update the html element to show amount
+
 function updateInventory() {
   for (let [material, amount] of Object.entries(inventory)) {
     switch (material) {
@@ -203,60 +203,6 @@ function toggleElementsHidder(el, hide = true) {
   hide ? (el.style.visibility = "hidden") : (el.style.visibility = "visible");
 }
 
-// randomize world maker. works with the modify option of the game and pull from input the amount of elements.
-// let notExistedLocaions; // array of x grid locations
-
-// function randomWorldMaker(trees = 1, rocks = 1, bushes = 1) {
-//     trees <= 1 || rocks <= 1 || bushes <= 1 ? // if only one element for each than smaller world. smaller array.
-//         notExistedLocaions = [...Array(24).keys()] :
-//         notExistedLocaions = [...Array(49).keys()]; // creating list of location on x grid (columns)
-//     notExistedLocaions.shift(); // deletes 0
-//     notExistedLocaions.shift(); // deletes 1 // to prevent element sitting to close to the starts
-
-//     //adjust grid to containe bigger world
-//     game.style.gridTemplateColumns = 'repeat(50, 1fr)'
-//     game.style.width = '1650px';
-//     game.style.margin = 0;
-
-//     worldCleaner(); //clears defaults
-//     boxGameCreator(1, 20, 25, 50) //creating more boxes and putting them on the grid.
-//     landScapeMaker('grass', 14, 14, 1, 50) // creating land for the world
-//     landScapeMaker('soil', 15, 20, 1, 50);
-
-//     for (let i = 1; i <= trees; i++) { // creating elements for the world (for amount of user choice)
-//         let location = Math.floor(Math.random() * notExistedLocaions.length); // generate random index of not existed locations
-//         if (notExistedLocaions[location]) { // checks if location is valid
-//             treeMaker(notExistedLocaions[location]); // creates element
-//             notExistedLocaions[location] = false; // makes element false (not habitable)
-//         } else {
-//             i--; // make loop iterate again
-//         }
-//     }
-//     for (let i = 1; i <= rocks; i++) {
-//         let location = Math.floor(Math.random() * notExistedLocaions.length);
-//         if (notExistedLocaions[location]) {
-//             rockMaker(notExistedLocaions[location]);
-//             notExistedLocaions[location] = false;
-//         } else {
-//             i--;
-//         }
-//     }
-//     for (let i = 1; i <= bushes; i++) {
-//         let location = Math.floor(Math.random() * notExistedLocaions.length);
-//         if (notExistedLocaions[location] && notExistedLocaions[location + 1] && notExistedLocaions[location + 2]) {
-//             bushMaker(notExistedLocaions[location]);
-//             notExistedLocaions[location + 2] = false;
-//             notExistedLocaions[location + 1] = false;
-//             notExistedLocaions[location] = false;
-//         } else {
-//             i--;
-//         }
-//     }
-// }
-
-// creating divs. giving them a specific location(row and column), and creating obj of boxes. for future play and positions options.
-let indexOfBox = 0;
-
 function boxGameCreator(
   rowStart = 1,
   rowEnd = 20,
@@ -285,23 +231,14 @@ function inventoryReset() {
   updateInventory();
 }
 
-// sets timer. each minute (60s) the player gets one added material of each type.
-// let timerCounter = 0;
 
 function timerMaterialReload() {
-  // if (timerCounter == 60) {
   for (let material of ["grass", "soil", "rock", "leaves", "wood"]) {
     inventory[material]
       ? (inventory[material] += 1)
       : (inventory[material] = 1); // adding to inventory
     updateInventory(); // updated nunmber showen to player
   }
-  //     timerCounter = 1; // resets timer
-  //     timer.innerHTML = `<h4><i class="far fa-grin-tongue-wink"></i></h4>`; //  smiley face to represent stocking
-  // } else {
-  //     timer.innerHTML = `<h4>${timerCounter}</h4>`
-  // }
-  // timerCounter++
 }
 
 // GAME PLAY -!!-
@@ -312,7 +249,6 @@ basicWorldMaker(); // creating basic world with one instance of each element
 
 // setInterval(timerMaterialReload, 1000) // starts timer for adding to inventory each minute
 
-// // event listners for tool choise -> collects only the matching material
 axe.addEventListener("click", (e) => {
   tool = "axe"; // updates the currrent tool
   removeOtherEventListeners(); //clears other event listners
@@ -378,43 +314,42 @@ leavesInventory.addEventListener("click", (event) => {
   game.addEventListener("click", putMaterial);
 });
 
-// // BUTTONS -
-// // reset button event listener
-// resetButton.addEventListener('click', () => {
-//     inventoryReset() // calibrate inventory
-//     updateInventory(); // update amount showen to player.
-//     worldCleaner();
-//     basicWorldMaker();
-//     timerCounter = 0; // resets timer of new resources
-// })
+
+resetButton.addEventListener("click", () => {
+  inventoryReset(); // calibrate inventory
+  updateInventory(); // update amount showen to player.
+  worldCleaner();
+  basicWorldMaker();
+  // resets timer of new resources
+});
 
 // // go back to entrence screen -- to menu
-// openMainScreen.addEventListener('click', () => {
-//     startGameButton.innerHTML = 'return to game'
-//     toggleElementsHidder(entrenceScreen, false);
-// })
+openMainScreen.addEventListener('click', () => {
+    startGameButton.innerHTML = 'return to game'
+    toggleElementsHidder(entrenceScreen, false);
+})
 
 // // entrence screen
 // let firstStart = 0; // to identify first start
-// startGameButton.addEventListener('click', () => {
-//     if (!firstStart) { // action for starting game (and not return to game)
-//         timerCounter = 0; // resets timer of new resources
-//         inventoryReset() // prevents collectin material when on entrence screen (resets only if first start)
-//         firstStart = 1;
-//     }
+startGameButton.addEventListener('click', () => {
+    if (!firstStart) { // action for starting game (and not return to game)
+        timerCounter = 0; // resets timer of new resources
+        inventoryReset() // prevents collectin material when on entrence screen (resets only if first start)
+        firstStart = 1;
+    }
 
-//     entrenceScreen.style.opacity = 0;
-//     entrenceScreen.style.transition = 'all 1.5s'; // animation of fade out
+    entrenceScreen.style.opacity = 0;
+    entrenceScreen.style.transition = 'all 1.5s'; // animation of fade out
 
-//     toggleElementsHidder(entrenceScreen);
-//     setTimeout(() => {
-//         entrenceScreen.style.opacity = 1;
-//     }, 2000) // set back opacity to reopen window
+    toggleElementsHidder(entrenceScreen);
+    setTimeout(() => {
+        entrenceScreen.style.opacity = 1;
+    }, 2000) // set back opacity to reopen window
 
-//     toggleElementsHidder(modifyScreen);
-//     toggleElementsHidder(instructionScreen);
+    toggleElementsHidder(modifyScreen);
+    toggleElementsHidder(instructionScreen);
 
-// })
+})
 
 // instructionsButton.addEventListener('click', () => {
 //     toggleElementsHidder(instructionScreen, false);
@@ -431,7 +366,7 @@ leavesInventory.addEventListener("click", (event) => {
 //     toggleElementsHidder(modifyScreen, false);
 // })
 
-// //leaves window open until mouse out
+
 // modifyScreen.addEventListener('mouseover', () => {
 //     toggleElementsHidder(modifyScreen, false);
 // })
@@ -448,21 +383,4 @@ leavesInventory.addEventListener("click", (event) => {
 //     toggleElementsHidder(instructionScreen);
 // })
 
-// startModifyGameButton.addEventListener('click', () => {
-//     firstStart = 1;
-//     toggleElementsHidder(entrenceScreen);
-//     toggleElementsHidder(modifyScreen);
-//     toggleElementsHidder(instructionScreen);
-//     inventoryReset();
-//     timerCounter = 0;
 
-//     entrenceScreen.style.opacity = 0;
-//     entrenceScreen.style.transition = 'all 1.5s'; // animation of fade out
-
-//     toggleElementsHidder(entrenceScreen);
-//     setTimeout(() => {
-//         entrenceScreen.style.opacity = 1;
-//     }, 2000) // set back opacity to reopen window
-
-//     randomWorldMaker(modifyWorldInputs[0].value, modifyWorldInputs[1].value, modifyWorldInputs[2].value)
-// })
