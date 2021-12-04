@@ -3,6 +3,7 @@
 const axe = document.querySelector(".axe");
 const picaxe = document.querySelector(".picaxe");
 const shovel = document.querySelector(".shovel");
+const sword = document.querySelector(".sword");
 
 const game = document.querySelector(".game-grid");
 
@@ -11,15 +12,15 @@ const rockInventory = document.querySelector(".inventory .rock");
 const soilInventory = document.querySelector(".inventory .soil");
 const leavesInventory = document.querySelector(".inventory .leaves");
 const woodInventory = document.querySelector(".inventory .wood");
-
-const timer = document.querySelector(".timer");
+const bushLeavesInventory = document.querySelector(".inventory .bushLeaves");
+const sunInventory = document.querySelector(".inventory .sun");
 
 const resetButton = document.querySelector(".tool-box--right-side button");
-const entranceScreen = document.querySelector(".entrence-screen");
-const modifyScreen = document.querySelector(".modify-window");
+const entranceScreen = document.querySelector(".entrance-screen");
+
 const instructionScreen = document.querySelector(".instruction-window");
 const [instructionsButton, startGameButton] = document.querySelectorAll(
-  ".entrence-screen button"
+  ".entrance-screen button"
 );
 const modifyWorldInputs = document.querySelectorAll("input");
 const openMainScreen = document.querySelectorAll(
@@ -35,9 +36,10 @@ let currentMaterial;
 
 // refrence to which tool and what he can harvest
 const materialObj = {
-  axe: ["leaves", "wood"],
+  axe: ["leaves", "wood", "bushLeaves"],
   picaxe: ["rock"],
   shovel: ["soil", "grass"],
+  sword: ["sun"],
 };
 
 // functions
@@ -69,24 +71,24 @@ function landMaker(length = 25) {
 // x for future random location generator
 
 function treeMaker() {
-  let treeX = Math.floor((Math.random() * 10) + 12);
+  let treeX = Math.floor(Math.random() * 10 + 12);
   // console.log(x);
   landScapeMaker("wood", 10, 13, treeX, treeX);
   landScapeMaker("leaves", 7, 9, treeX - 1, treeX + 1);
 }
 
 function rockMaker() {
-  let rockX = Math.floor((Math.random() * 6) + 14);
-  let rockY = Math.floor((Math.random() * 4) + 12); 
+  let rockX = Math.floor(Math.random() * 24 + 1);
+  let rockY = Math.floor(Math.random() * 4 + 9);
   landScapeMaker("rock", rockY, 13, rockX, rockX);
   landScapeMaker("rock", rockY, 13, rockX, rockX);
   landScapeMaker("rock", rockY, 13, rockX, rockX);
 }
 
 function bushMaker(x = 5) {
-  let bushX = Math.floor((Math.random() * 5) + 3);
-  landScapeMaker("leaves", 13, 13, bushX, bushX + 2);
-  landScapeMaker("leaves", 12, 12, bushX + 1, bushX + 1);
+  let bushX = Math.floor(Math.random() * 5 + 3);
+  landScapeMaker("bushLeaves", 13, 13, bushX, bushX + 2);
+  landScapeMaker("bushLeaves", 12, 12, bushX + 1, bushX + 1);
 }
 
 function sunMaker(x = 3, y = 1) {
@@ -129,7 +131,6 @@ function wrongPick(event) {
 
 function collectMaterial(event) {
   material = event.target.classList[1];
-
   if (materialObj[tool].includes(material)) {
     inventory[material]
       ? (inventory[material] += 1)
@@ -158,6 +159,12 @@ function updateInventory() {
       case "wood":
         woodInventory.innerHTML = `<h4>${amount}</h4>`;
         break;
+      case "sun":
+        sunInventory.innerHTML = `<h4>${amount}</h4>`;
+        break;
+      case "bushLeaves":
+        bushLeavesInventory.innerHTML = `<h4>${amount}</h4>`;
+        break;
     }
   }
 }
@@ -183,11 +190,14 @@ function backgroundReset() {
   axe.classList.contains("blue") && axe.classList.remove("blue");
   picaxe.classList.contains("blue") && picaxe.classList.remove("blue");
   shovel.classList.contains("blue") && shovel.classList.remove("blue");
+  sword.classList.contains("blue") && sword.classList.remove("blue");
   grassInventory.style.opacity = 0.75;
   woodInventory.style.opacity = 0.75;
   soilInventory.style.opacity = 0.75;
   leavesInventory.style.opacity = 0.75;
   rockInventory.style.opacity = 0.75;
+  bushLeavesInventory.style.opacity = 0.75;
+  sunInventory.style.opacity = 0.75;
 }
 
 function toggleElementsHidder(el, hide = true) {
@@ -202,7 +212,6 @@ function boxGameCreator(
   columnStart = 1,
   columnEnd = 25
 ) {
-  //starts counting from one for easier number reading (20 and 25 instead of 19 24)
   for (let row = rowStart; row <= rowEnd; row++) {
     for (let column = columnStart; column <= columnEnd; column++) {
       let box = document.createElement("div");
@@ -225,7 +234,15 @@ function inventoryReset() {
 }
 
 function timerMaterialReload() {
-  for (let material of ["grass", "soil", "rock", "leaves", "wood"]) {
+  for (let material of [
+    "grass",
+    "soil",
+    "rock",
+    "leaves",
+    "wood",
+    "bushLeaves",
+    "sun",
+  ]) {
     inventory[material]
       ? (inventory[material] += 1)
       : (inventory[material] = 1); // adding to inventory
@@ -254,6 +271,14 @@ picaxe.addEventListener("click", (e) => {
 
 shovel.addEventListener("click", (e) => {
   tool = "shovel";
+  removeOtherEventListeners();
+  backgroundReset();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectMaterial);
+});
+
+sword.addEventListener("click", (e) => {
+  tool = "sword";
   removeOtherEventListeners();
   backgroundReset();
   e.currentTarget.classList.add("blue");
@@ -300,6 +325,22 @@ leavesInventory.addEventListener("click", (event) => {
   game.addEventListener("click", putMaterial);
 });
 
+bushLeavesInventory.addEventListener("click", (event) => {
+  removeOtherEventListeners();
+  material = "bushLeaves";
+  backgroundReset();
+  leavesInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterial);
+});
+
+sunInventory.addEventListener("click", (event) => {
+  removeOtherEventListeners();
+  material = "bushLeaves";
+  backgroundReset();
+  leavesInventory.style.opacity = 1;
+  game.addEventListener("click", putMaterial);
+});
+
 resetButton.addEventListener("click", () => {
   inventoryReset();
   updateInventory();
@@ -319,7 +360,19 @@ startGameButton.addEventListener("click", () => {
   toggleElementsHidder(entranceScreen);
   setTimeout(() => {
     entranceScreen.style.opacity = 1;
-  }, 2000); // set back opacity to reopen window
+  }, 2000);
 
+  toggleElementsHidder(instructionScreen);
+});
+
+instructionsButton.addEventListener("click", () => {
+  toggleElementsHidder(instructionScreen, false);
+});
+
+instructionsButton.addEventListener("mouseover", () => {
+  toggleElementsHidder(instructionScreen, false);
+});
+
+instructionScreen.addEventListener("mouseout", () => {
   toggleElementsHidder(instructionScreen);
 });

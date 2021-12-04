@@ -10,7 +10,7 @@ body {
 }
 
 /* Entrence Screen */
-.entrence-screen {
+.entrance-screen {
   height: 100vh;
   position: absolute;
   top: 0;
@@ -25,7 +25,7 @@ body {
   grid-template-columns: 1fr 1fr;
 }
 
-.entrence-screen > div {
+.entrance-screen > div {
   margin-top: 25vh;
 }
 
@@ -89,7 +89,6 @@ body {
   margin-top: 2px;
 }
 
-
 .btn:hover {
   border: 1px solid #1f1f1f;
   box-shadow: 1px 5px 5px #1f1f1f;
@@ -149,7 +148,8 @@ body {
 /* tools */
 .picaxe,
 .shovel,
-.axe {
+.axe,
+.sword {
   border: 1px solid white;
   padding: 5px;
   width: 65px;
@@ -162,13 +162,15 @@ body {
 
 .picaxe:hover,
 .shovel:hover,
-.axe:hover {
+.axe:hover,
+.sword:hover {
   opacity: 1;
 }
 
 .picaxe img,
 .shovel img,
-.axe img {
+.axe img,
+.sword img {
   width: 3.5rem;
 }
 
@@ -181,7 +183,7 @@ body {
 /* inventory */
 .inventory {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   column-gap: 10px;
   margin-top: 12%;
 }
@@ -238,6 +240,11 @@ body {
   transition: background 0.5s ease;
 }
 
+.bushLeaves {
+  background: url("../img/sunflower.png") no-repeat center/cover;
+  transition: background 0.5s ease;
+}
+
 .wood {
   background: url("../img/wood.png") no-repeat center/cover;
   transition: background 1s ease;
@@ -247,7 +254,6 @@ body {
   background: url("/img/sun.png");
   transition: background 1s ease;
 }
-
 
 .blue {
   background: rgba(84, 84, 156, 0.527);
