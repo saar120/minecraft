@@ -15,7 +15,7 @@ const woodInventory = document.querySelector(".inventory .wood");
 const timer = document.querySelector(".timer");
 
 const resetButton = document.querySelector(".tool-box--right-side button");
-const entrenceScreen = document.querySelector(".entrence-screen");
+const entranceScreen = document.querySelector(".entrence-screen");
 const modifyScreen = document.querySelector(".modify-window");
 const instructionScreen = document.querySelector(".instruction-window");
 const [instructionsButton, startGameButton] = document.querySelectorAll(
@@ -67,20 +67,26 @@ function landMaker(length = 25) {
 }
 
 // x for future random location generator
-function treeMaker(x = 20) {
-  landScapeMaker("wood", 10, 13, x, x);
-  landScapeMaker("leaves", 7, 9, x - 1, x + 1);
+
+function treeMaker() {
+  let treeX = Math.floor((Math.random() * 10) + 12);
+  // console.log(x);
+  landScapeMaker("wood", 10, 13, treeX, treeX);
+  landScapeMaker("leaves", 7, 9, treeX - 1, treeX + 1);
 }
 
-function rockMaker(x = 2, double = false) {
-  double
-    ? landScapeMaker("rock", 12, 13, x, x)
-    : landScapeMaker("rock", 13, 13, x, x);
+function rockMaker() {
+  let rockX = Math.floor((Math.random() * 6) + 14);
+  let rockY = Math.floor((Math.random() * 4) + 12); 
+  landScapeMaker("rock", rockY, 13, rockX, rockX);
+  landScapeMaker("rock", rockY, 13, rockX, rockX);
+  landScapeMaker("rock", rockY, 13, rockX, rockX);
 }
 
 function bushMaker(x = 5) {
-  landScapeMaker("leaves", 13, 13, x, x + 2);
-  landScapeMaker("leaves", 12, 12, x + 1, x + 1);
+  let bushX = Math.floor((Math.random() * 5) + 3);
+  landScapeMaker("leaves", 13, 13, bushX, bushX + 2);
+  landScapeMaker("leaves", 12, 12, bushX + 1, bushX + 1);
 }
 
 function sunMaker(x = 3, y = 1) {
@@ -96,7 +102,7 @@ function sunMaker(x = 3, y = 1) {
 function basicWorldMaker() {
   landMaker();
   treeMaker();
-  rockMaker(13, true);
+  rockMaker();
   rockMaker();
   bushMaker();
   sunMaker();
@@ -303,17 +309,17 @@ resetButton.addEventListener("click", () => {
 
 openMainScreen.addEventListener("click", () => {
   startGameButton.innerHTML = "return to game";
-  toggleElementsHidder(entrenceScreen, false);
+  toggleElementsHidder(entranceScreen, false);
 });
 
 startGameButton.addEventListener("click", () => {
-  entrenceScreen.style.opacity = 0;
-  entrenceScreen.style.transition = "all 1.5s"; // animation of fade out
+  entranceScreen.style.opacity = 0;
+  entranceScreen.style.transition = "all 1.5s"; // animation of fade out
 
-  toggleElementsHidder(entrenceScreen);
-  // setTimeout(() => {
-  //   entrenceScreen.style.opacity = 1;
-  // }, 2000); // set back opacity to reopen window
+  toggleElementsHidder(entranceScreen);
+  setTimeout(() => {
+    entranceScreen.style.opacity = 1;
+  }, 2000); // set back opacity to reopen window
 
   toggleElementsHidder(instructionScreen);
 });
