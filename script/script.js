@@ -360,10 +360,4 @@ instructionsButton.addEventListener("click", () => {
   toggleElementsHidder(instructionScreen, false);
 });
 
-instructionsButton.addEventListener("mouseover", () => {
-  toggleElementsHidder(instructionScreen, false);
-});
 
-instructionScreen.addEventListener("mouseout", () => {
-  toggleElementsHidder(instructionScreen);
-});
