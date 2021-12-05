@@ -15,7 +15,7 @@ const woodInventory = document.querySelector(".inventory .wood");
 const bushLeavesInventory = document.querySelector(".inventory .bushLeaves");
 const sunInventory = document.querySelector(".inventory .sun");
 
-const resetButton = document.querySelector(".tool-box--right-side button");
+const randomButton = document.querySelector(".tool-box--right-side button");
 const entranceScreen = document.querySelector(".entrance-screen");
 
 const instructionScreen = document.querySelector(".instruction-window");
@@ -322,7 +322,7 @@ sword.addEventListener("click", (e) => {
   game.addEventListener("click", collectTiles);
 });
 
-resetButton.addEventListener("click", () => {
+randomButton.addEventListener("click", () => {
   inventoryReset();
   Inventory();
   worldCleaner();
