@@ -116,25 +116,25 @@ function worldCleaner(columnEnd = 25) {
   }
 }
 
-function wrongPick(event) {
+function wrongChoice(event) {
   event.target.style.border = "1px solid red";
   setTimeout(() => {
     event.target.style.border = "none";
   }, 400);
 }
 
-function collectMaterial(event) {
+function collectTiles(event) {
   material = event.target.classList[1];
   if (materialObj[tool].includes(material)) {
     inventory[material]
       ? (inventory[material] += 1)
       : (inventory[material] = 1); //// updated inventory obj amounts
     event.target.classList.remove(material);
-    updateInventory();
-  } else wrongPick(event);
+    Inventory();
+  } else wrongChoice(event);
 }
 
-function updateInventory() {
+function Inventory() {
   for (let [material, amount] of Object.entries(inventory)) {
     switch (material) {
       case "grass":
@@ -167,13 +167,13 @@ function putMaterialBackOnGrid(event) {
     if (event.target.classList.length == 1) {
       event.target.classList.add(material);
       inventory[material] -= 1;
-      updateInventory();
+      Inventory();
     }
   }
 }
 
 function removeOtherEventListeners() {
-  game.removeEventListener("click", collectMaterial);
+  game.removeEventListener("click", collectTiles);
   game.removeEventListener("click", putMaterialBackOnGrid);
 }
 
@@ -197,7 +197,7 @@ function toggleElementsHidder(el, hide = true) {
 
 let indexOfBox = 0;
 
-function boxGameCreator(
+function gameCreator(
   rowStart = 1,
   rowEnd = 20,
   columnStart = 1,
@@ -221,7 +221,7 @@ function inventoryReset() {
     // calibrate inventory
     inventory[material] = 0;
   }
-  updateInventory();
+  Inventory();
 }
 
 function materialReload() {
@@ -237,11 +237,11 @@ function materialReload() {
     inventory[material]
       ? (inventory[material] += 1)
       : (inventory[material] = 1);
-    updateInventory();
+    Inventory();
   }
 }
 
-boxGameCreator();
+gameCreator();
 basicWorldMaker();
 
 axe.addEventListener("click", (e) => {
@@ -249,7 +249,7 @@ axe.addEventListener("click", (e) => {
   removeOtherEventListeners();
   backgroundReset();
   e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectMaterial);
+  game.addEventListener("click", collectTiles);
 });
 
 picaxe.addEventListener("click", (e) => {
@@ -257,7 +257,7 @@ picaxe.addEventListener("click", (e) => {
   removeOtherEventListeners();
   backgroundReset();
   e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectMaterial);
+  game.addEventListener("click", collectTiles);
 });
 
 shovel.addEventListener("click", (e) => {
@@ -265,7 +265,7 @@ shovel.addEventListener("click", (e) => {
   removeOtherEventListeners();
   backgroundReset();
   e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectMaterial);
+  game.addEventListener("click", collectTiles);
 });
 
 sword.addEventListener("click", (e) => {
@@ -273,7 +273,7 @@ sword.addEventListener("click", (e) => {
   removeOtherEventListeners();
   backgroundReset();
   e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectMaterial);
+  game.addEventListener("click", collectTiles);
 });
 
 grassInventory.addEventListener("click", (event) => {
@@ -334,7 +334,7 @@ sunInventory.addEventListener("click", (event) => {
 
 resetButton.addEventListener("click", () => {
   inventoryReset();
-  updateInventory();
+  Inventory();
   worldCleaner();
   basicWorldMaker();
 });

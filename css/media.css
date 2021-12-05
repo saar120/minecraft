@@ -76,7 +76,6 @@
 
 @media only screen and (orientation: portrait) {
   .entrence-screen {
-    /* background: black; */
     text-align: center;
     overflow: hidden;
   }
