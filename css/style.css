@@ -75,7 +75,7 @@ body {
   padding: 30px;
 }
 
-/* utillities */
+
 .btn {
   cursor: pointer;
   padding: 10px;
@@ -97,13 +97,13 @@ body {
   transition: border-radius 1s ease;
 }
 
-/* viewed screen */
+
 .container {
   display: grid;
   grid-template-columns: 6fr 1fr;
 }
 
-/* left side -- Game */
+
 .game-container--left-side {
   margin: 0;
   overflow-y: hidden;
@@ -130,9 +130,6 @@ body {
   cursor: pointer;
 }
 
-/* right side - menu */
-
-/* tool box */
 .tool-box--right-side {
   background-color: rgb(58, 48, 48);
   display: flex;
@@ -211,11 +208,6 @@ body {
   color: #1f1f1f;
 }
 
-.timer {
-  border-radius: 40%;
-}
-
-/* player materials */
 .cloud {
   background: url("../img/cloud.png") no-repeat center/cover;
 }
@@ -253,8 +245,4 @@ body {
 .sun {
   background: url("/img/sun.png");
   transition: background 1s ease;
-}
-
-.blue {
-  background: rgba(84, 84, 156, 0.527);
 }

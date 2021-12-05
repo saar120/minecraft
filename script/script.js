@@ -34,14 +34,12 @@ let material;
 let currentTool;
 let currentMaterial;
 
-
 const materialObj = {
   axe: ["leaves", "wood", "bushLeaves"],
   picaxe: ["rock"],
   shovel: ["soil", "grass"],
   sword: ["sun"],
 };
-
 
 function landScapeMaker(
   material,
@@ -182,13 +180,6 @@ function backgroundReset() {
   picaxe.classList.contains("blue") && picaxe.classList.remove("blue");
   shovel.classList.contains("blue") && shovel.classList.remove("blue");
   sword.classList.contains("blue") && sword.classList.remove("blue");
-  grassInventory.style.opacity = 0.75;
-  woodInventory.style.opacity = 0.75;
-  soilInventory.style.opacity = 0.75;
-  leavesInventory.style.opacity = 0.75;
-  rockInventory.style.opacity = 0.75;
-  bushLeavesInventory.style.opacity = 0.75;
-  sunInventory.style.opacity = 0.75;
 }
 
 function toggleElementsHidder(el, hide = true) {
@@ -240,41 +231,6 @@ function materialReload() {
     Inventory();
   }
 }
-
-gameCreator();
-basicWorldMaker();
-
-axe.addEventListener("click", (e) => {
-  tool = "axe";
-  removeOtherEventListeners();
-  backgroundReset();
-  e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectTiles);
-});
-
-picaxe.addEventListener("click", (e) => {
-  tool = "picaxe";
-  removeOtherEventListeners();
-  backgroundReset();
-  e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectTiles);
-});
-
-shovel.addEventListener("click", (e) => {
-  tool = "shovel";
-  removeOtherEventListeners();
-  backgroundReset();
-  e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectTiles);
-});
-
-sword.addEventListener("click", (e) => {
-  tool = "sword";
-  removeOtherEventListeners();
-  backgroundReset();
-  e.currentTarget.classList.add("blue");
-  game.addEventListener("click", collectTiles);
-});
 
 grassInventory.addEventListener("click", (event) => {
   removeOtherEventListeners();
@@ -332,6 +288,41 @@ sunInventory.addEventListener("click", (event) => {
   game.addEventListener("click", putMaterialBackOnGrid);
 });
 
+gameCreator();
+basicWorldMaker();
+
+axe.addEventListener("click", (e) => {
+  tool = "axe";
+  removeOtherEventListeners();
+  backgroundReset();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectTiles);
+});
+
+picaxe.addEventListener("click", (e) => {
+  tool = "picaxe";
+  removeOtherEventListeners();
+  backgroundReset();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectTiles);
+});
+
+shovel.addEventListener("click", (e) => {
+  tool = "shovel";
+  removeOtherEventListeners();
+  backgroundReset();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectTiles);
+});
+
+sword.addEventListener("click", (e) => {
+  tool = "sword";
+  removeOtherEventListeners();
+  backgroundReset();
+  e.currentTarget.classList.add("blue");
+  game.addEventListener("click", collectTiles);
+});
+
 resetButton.addEventListener("click", () => {
   inventoryReset();
   Inventory();
@@ -359,5 +350,3 @@ startGameButton.addEventListener("click", () => {
 instructionsButton.addEventListener("click", () => {
   toggleElementsHidder(instructionScreen, false);
 });
-
-
