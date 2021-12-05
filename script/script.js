@@ -22,7 +22,7 @@ const instructionScreen = document.querySelector(".instruction-window");
 const [instructionsButton, startGameButton] = document.querySelectorAll(
   ".entrance-screen button"
 );
-const modifyWorldInputs = document.querySelectorAll("input");
+
 const openMainScreen = document.querySelectorAll(
   ".tool-box--right-side .btn"
 )[1];
@@ -34,7 +34,7 @@ let material;
 let currentTool;
 let currentMaterial;
 
-// refrence to which tool and what he can harvest
+
 const materialObj = {
   axe: ["leaves", "wood", "bushLeaves"],
   picaxe: ["rock"],
@@ -42,8 +42,7 @@ const materialObj = {
   sword: ["sun"],
 };
 
-// functions
-// create 2d grid for the game
+
 function landScapeMaker(
   material,
   rowStart = 1,
