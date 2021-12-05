@@ -75,7 +75,6 @@ body {
   padding: 30px;
 }
 
-
 .btn {
   cursor: pointer;
   padding: 10px;
@@ -97,17 +96,16 @@ body {
   transition: border-radius 1s ease;
 }
 
-
 .container {
   display: grid;
   grid-template-columns: 6fr 1fr;
 }
 
-
 .game-container--left-side {
   margin: 0;
   overflow-y: hidden;
   height: 99vh;
+  background: url("https://images.pexels.com/photos/275030/pexels-photo-275030.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 }
 
 .game-grid {
