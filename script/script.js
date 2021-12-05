@@ -41,7 +41,7 @@ const materialObj = {
   sword: ["sun"],
 };
 
-function landScapeMaker(
+function worldScapeMaker(
   material,
   rowStart = 1,
   rowEnd = 20,
@@ -58,40 +58,40 @@ function landScapeMaker(
 function landMaker(length = 25) {
   let cloudX = Math.floor(Math.random() * 5 + 1);
   let cloudY = Math.floor(Math.random() * 10 + 6);
-  landScapeMaker("grass", 14, 14, 1, length);
-  landScapeMaker("soil", 15, 20, 1, length);
-  landScapeMaker("cloud", 5, 5, 9, 13);
-  landScapeMaker("cloud", 4, 4, 10, 13);
-  landScapeMaker("cloud", 3, 3, 10, 11);
+  worldScapeMaker("grass", 14, 14, 1, length);
+  worldScapeMaker("soil", 15, 20, 1, length);
+  worldScapeMaker("cloud", 5, 5, 9, 13);
+  worldScapeMaker("cloud", 4, 4, 10, 13);
+  worldScapeMaker("cloud", 3, 3, 10, 11);
 }
 
 function treeMaker() {
   let treeX = Math.floor(Math.random() * 10 + 12);
-  landScapeMaker("wood", 10, 13, treeX, treeX);
-  landScapeMaker("leaves", 7, 9, treeX - 1, treeX + 1);
+  worldScapeMaker("wood", 10, 13, treeX, treeX);
+  worldScapeMaker("leaves", 7, 9, treeX - 1, treeX + 1);
 }
 
 function rockMaker() {
   let rockX = Math.floor(Math.random() * 24 + 1);
   let rockY = Math.floor(Math.random() * 4 + 9);
-  landScapeMaker("rock", rockY, 13, rockX, rockX);
-  landScapeMaker("rock", rockY, 13, rockX, rockX);
-  landScapeMaker("rock", rockY, 13, rockX, rockX);
+  worldScapeMaker("rock", rockY, 13, rockX, rockX);
+  worldScapeMaker("rock", rockY, 13, rockX, rockX);
+  worldScapeMaker("rock", rockY, 13, rockX, rockX);
 }
 
 function bushMaker(x = 5) {
   let bushX = Math.floor(Math.random() * 5 + 3);
-  landScapeMaker("bushLeaves", 13, 13, bushX, bushX + 2);
-  landScapeMaker("bushLeaves", 12, 12, bushX + 1, bushX + 1);
+  worldScapeMaker("bushLeaves", 13, 13, bushX, bushX + 2);
+  worldScapeMaker("bushLeaves", 12, 12, bushX + 1, bushX + 1);
 }
 
 function sunMaker(x = 3, y = 1) {
-  landScapeMaker("sun", y, y, x, x);
-  landScapeMaker("sun", y + 1, y + 1, x - 1, x + 1);
-  landScapeMaker("sun", y + 2, y + 2, x - 2, x + 2);
-  landScapeMaker("sun", y + 5, y + 5, x, x);
-  landScapeMaker("sun", y + 4, y + 4, x - 1, x + 1);
-  landScapeMaker("sun", y + 3, y + 3, x - 2, x + 2);
+  worldScapeMaker("sun", y, y, x, x);
+  worldScapeMaker("sun", y + 1, y + 1, x - 1, x + 1);
+  worldScapeMaker("sun", y + 2, y + 2, x - 2, x + 2);
+  worldScapeMaker("sun", y + 5, y + 5, x, x);
+  worldScapeMaker("sun", y + 4, y + 4, x - 1, x + 1);
+  worldScapeMaker("sun", y + 3, y + 3, x - 2, x + 2);
 }
 
 function basicWorldMaker() {
@@ -112,12 +112,6 @@ function worldCleaner(columnEnd = 25) {
         );
     }
   }
-}
-
-function wrongChoice(event) {
-  event.target.style.border = "1px solid red";
-
-  event.target.style.border = "none";
 }
 
 function collectTiles(event) {
@@ -167,6 +161,11 @@ function putMaterialBackOnGrid(event) {
       Inventory();
     }
   }
+}
+
+function wrongChoice(event) {
+  event.target.style.border = "1px solid red";
+  event.target.style.border = "none";
 }
 
 function removeOtherEventListeners() {
