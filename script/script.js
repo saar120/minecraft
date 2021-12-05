@@ -116,9 +116,8 @@ function worldCleaner(columnEnd = 25) {
 
 function wrongChoice(event) {
   event.target.style.border = "1px solid red";
-  setTimeout(() => {
-    event.target.style.border = "none";
-  }, 400);
+
+  event.target.style.border = "none";
 }
 
 function collectTiles(event) {
@@ -340,9 +339,8 @@ startGameButton.addEventListener("click", () => {
   entranceScreen.style.transition = "all 1.5s";
 
   toggleElementsHidder(entranceScreen);
-  setTimeout(() => {
-    entranceScreen.style.opacity = 1;
-  }, 2000);
+
+  entranceScreen.style.opacity = 1;
 
   toggleElementsHidder(instructionScreen);
 });
