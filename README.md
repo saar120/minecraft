@@ -1,3 +1,5 @@
+Working Demo: https://relaxed-benz-08a96b.netlify.app/
+
 This project mainly involved working with some complex grid system of HTML, advanced features of CSS and DOM functions to make it alive.
 
 The basic functions of creating the basic structure was creating a dynamic JS grid system to fill in the blocks that the HTML created fo us:
