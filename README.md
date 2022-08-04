@@ -94,4 +94,5 @@ To collect and put material back to the game were created together with inventor
 
 For the most parts of this project I used addEventListener to specify the action that must be taken when a user presses certain areas of the game, together with removeEventListener the stop the actions of previously selected tools and materials.
 
-SPREAD IT AMONG YOUR YOUNGSTERS! (it's better than drugs)
+SPREAD IT AMONG YOUR YOUNGSTERS!
+(it's better than drugs)
